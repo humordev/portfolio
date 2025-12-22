@@ -48,6 +48,7 @@ function Particles() {
         if (!mesh.current) return;
 
         const { mouse, clock } = state;
+        const { width, height } = state.viewport.getCurrentViewport(state.camera, [0, 0, 0]);
         const positions = mesh.current.geometry.attributes.position.array as Float32Array;
         const time = clock.getElapsedTime();
 
@@ -60,33 +61,52 @@ function Particles() {
             const ay = particles.anchors[i3 + 1];
             const az = particles.anchors[i3 + 2];
 
-            // "Breathing" / Floating in place
-            // We add sine wave motion based on time and individual offset
-            // This makes them move AROUND their anchor, but never leave it.
-            const movementRadius = 0.5; // How far they wiggle
+            // Interaction Calculations
+            // Properly map normalized mouse (-1..1) to world space at z=0
+            const mouseX = (mouse.x * width) / 2;
+            const mouseY = (mouse.y * height) / 2;
 
-            const x = ax + Math.sin(time + offset) * movementRadius;
-            const y = ay + Math.cos(time * 0.8 + offset) * movementRadius;
-            const z = az + Math.sin(time * 1.2 + offset) * movementRadius;
+            // Use anchor for stable distance check
+            const distDx = ax - mouseX;
+            const distDy = ay - mouseY;
+            const distSq = distDx * distDx + distDy * distDy;
 
-            // Interaction: Subtle shift away from mouse (without permanently moving)
-            const mouseDx = (mouse.x * 20) - x;
-            const mouseDy = (mouse.y * 10) - y;
-            const dSq = mouseDx * mouseDx + mouseDy * mouseDy;
+            // Interaction Zone Radius - Bigger radius for visibility
+            const interactionRadius = 40; // Squared radius (~6.3 units)
 
-            let finalX = x;
-            let finalY = y;
-            let finalZ = z;
-
-            if (dSq < 16) {
-                const push = (16 - dSq) * 0.02;
-                finalX -= mouseDx * push;
-                finalY -= mouseDy * push;
+            let intensity = 0;
+            if (distSq < interactionRadius) {
+                intensity = 1 - (distSq / interactionRadius);
+                intensity = Math.pow(intensity, 2); // Ease in
             }
 
-            positions[i3] = finalX;
-            positions[i3 + 1] = finalY;
-            positions[i3 + 2] = finalZ;
+            // breathing speed - faster when hovered
+            const freq = 1 + (intensity * 10);
+            const amp = 0.5 + (intensity * 1.5);
+
+            // Base Oscillation
+            let tx = ax + Math.sin(time * freq + offset) * amp;
+            let ty = ay + Math.cos(time * freq * 0.8 + offset) * amp;
+            let tz = az + Math.sin(time * freq * 1.2 + offset) * amp;
+
+            // Apply Interaction Effects
+            if (intensity > 0) {
+                // 1. Repulsion (Push XY) - Stronger
+                const pushFactor = 4 * intensity;
+                tx += (distDx / Math.sqrt(distSq || 1)) * pushFactor;
+                ty += (distDy / Math.sqrt(distSq || 1)) * pushFactor;
+
+                // 2. Z-Pop (Pull towards camera) - MUCH Stronger
+                tz += 8 * intensity;
+
+                // 3. Noise/Glitch effect (random jitter)
+                tx += (Math.random() - 0.5) * 0.2 * intensity;
+                ty += (Math.random() - 0.5) * 0.2 * intensity;
+            }
+
+            positions[i3] = tx;
+            positions[i3 + 1] = ty;
+            positions[i3 + 2] = tz;
         }
 
         mesh.current.geometry.attributes.position.needsUpdate = true;
