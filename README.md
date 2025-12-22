@@ -124,7 +124,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🤝 Contact
 
-Oussama Sallak - [@osallak](https://x.com/) - oussamasallak1@gmail.com
+Oussama Sallak - [@osallak](https://x.com/uss4ma) - oussamasallak1@gmail.com
 
 Project Link: [https://github.com/osallak/portfolio](https://github.com/osallak/portfolio)
 

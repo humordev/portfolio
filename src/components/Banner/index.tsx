@@ -4,6 +4,7 @@ import { useTypewriter, Cursor } from "react-simple-typewriter";
 import { FaDownload, FaGithub, FaLinkedin } from "react-icons/fa6";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import Singularity from "@/components/Singularity";
 
 export default function Banner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -76,18 +77,14 @@ export default function Banner() {
     mousePosition.y,
     0.5
   );
-  const mouseHexagonTransform = calculateMouseTransform(
-    mousePosition.x,
-    mousePosition.y,
-    -0.3
-  );
+
   const mouseParticlesTransform = calculateMouseTransform(
     mousePosition.x,
     mousePosition.y,
     0.8
   );
 
-  const containerVariants = {
+  const containerVariants: any = {
     hidden: {
       opacity: 0,
     },
@@ -100,7 +97,7 @@ export default function Banner() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: any = {
     hidden: {
       y: 50,
       opacity: 0,
@@ -126,9 +123,9 @@ export default function Banner() {
   }));
 
   return (
-    <div className="min-h-[100dvh] w-full relative" id="home" ref={ref}>
-      {/* Animated background particles */}
-      <div className="absolute inset-0 z-0">
+    <div className="min-h-[100dvh] w-full relative pointer-events-none" id="home" ref={ref}>
+      {/* Animated background particles - hidden for now as Singularity takes over */}
+      <div className="absolute inset-0 z-0 hidden">
         {particles.map((particle) => (
           <motion.div
             key={particle.id}
@@ -163,117 +160,16 @@ export default function Banner() {
         ))}
       </div>
 
-      {/* Background hexagons with mouse movement */}
+      {/* 3D Singularity Element */}
       <motion.div
-        className="absolute inset-0 z-0 flex items-center justify-center"
+        className="absolute inset-0 z-0 pointer-events-auto"
         style={{
           y: yBg,
           opacity: opacityBg,
           scale,
         }}
       >
-        <motion.div
-          className="relative w-[min(800px,90vw)] h-[min(800px,90vw)] md:w-[800px] md:h-[800px]"
-          animate={{
-            x: mouseHexagonTransform.x,
-            y: mouseHexagonTransform.y,
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 50,
-            damping: 20,
-            mass: 0.5,
-          }}
-        >
-          <motion.div
-            className="absolute inset-0 border-[2px] md:border-[3px] border-purple-500/30"
-            style={{
-              clipPath:
-                "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-            }}
-            animate={{
-              rotate: 360,
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              rotate: {
-                duration: 20,
-                repeat: Infinity,
-                ease: "linear",
-              },
-              scale: {
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-            }}
-          />
-          <motion.div
-            className="absolute inset-[15%] border-[2px] md:border-[3px] border-pink-500/40"
-            style={{
-              clipPath:
-                "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-            }}
-            animate={{
-              rotate: -360,
-              scale: [1.1, 1, 1.1],
-            }}
-            transition={{
-              rotate: {
-                duration: 15,
-                repeat: Infinity,
-                ease: "linear",
-              },
-              scale: {
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-            }}
-          />
-          <motion.div
-            className="absolute inset-[30%] border-[2px] md:border-[3px] border-purple-500/50"
-            style={{
-              clipPath:
-                "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-            }}
-            animate={{
-              rotate: 360,
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              rotate: {
-                duration: 10,
-                repeat: Infinity,
-                ease: "linear",
-              },
-              scale: {
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-            }}
-          />
-
-          {/* Center glowing core */}
-          <motion.div
-            className="absolute inset-[45%] bg-gradient-to-r from-purple-500/30 to-pink-500/30 backdrop-blur-md"
-            style={{
-              clipPath:
-                "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
-              boxShadow: "0 0 40px 5px rgba(168, 85, 247, 0.4)",
-            }}
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.7, 0.9, 0.7],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-        </motion.div>
+        <Singularity />
       </motion.div>
 
       {/* Background dots with lighter opacity */}
@@ -286,7 +182,7 @@ export default function Banner() {
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="relative z-10 min-h-[100dvh] w-full flex items-center justify-center px-4 sm:px-6 md:px-8"
+        className="relative z-10 min-h-[100dvh] w-full flex items-center justify-center px-4 sm:px-6 md:px-8 pointer-events-auto"
       >
         <motion.div
           className="w-full max-w-4xl mx-auto"
@@ -302,7 +198,7 @@ export default function Banner() {
           }}
         >
           <motion.div
-            className="relative backdrop-blur-md bg-black/30 rounded-2xl p-4 sm:p-6 md:p-10 border border-[#2e2e2e] shadow-xl overflow-hidden mx-3 sm:mx-0"
+            className="relative backdrop-blur-sm rounded-3xl border border-white/5 bg-black/10 p-8 md:p-12 shadow-2xl overflow-hidden transition-colors duration-500 hover:bg-black/20 hover:backdrop-blur-md mx-3 sm:mx-0"
             whileHover={{ boxShadow: "0 0 30px 5px rgba(168, 85, 247, 0.3)" }}
             transition={{ duration: 0.3 }}
           >
@@ -324,7 +220,7 @@ export default function Banner() {
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight"
               >
                 Hi, I&apos;m{" "}
-                <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text relative">
+                <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text relative drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">
                   Oussama!
                   <span className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-gradient-to-r from-purple-500 to-pink-500 opacity-60"></span>
                 </span>

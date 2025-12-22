@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import Footer from "@/components/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
+import SmoothScroll from "@/components/SmoothScroll";
 import CursorFollower from "@/components/CursorFollower";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
@@ -87,7 +88,9 @@ export default function RootLayout({
         <ThemeProvider>
           <CursorFollower />
           <ScrollProgress />
-          {children}
+          <SmoothScroll>
+            {children}
+          </SmoothScroll>
           <Footer />
           <Toaster richColors position="bottom-right" />
         </ThemeProvider>
