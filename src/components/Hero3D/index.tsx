@@ -64,8 +64,12 @@ function NikaSphere() {
 
 export default function Hero3D() {
     return (
-        <div className="absolute inset-0 z-0 w-full h-full pointer-events-auto">
-            <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+        <div className="absolute inset-0 z-0 w-full h-full pointer-events-none">
+            <Canvas
+                camera={{ position: [0, 0, 5], fov: 45 }}
+                style={{ pointerEvents: 'none' }}
+                eventSource={undefined}
+            >
                 <NikaSphere />
             </Canvas>
         </div>

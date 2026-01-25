@@ -112,14 +112,20 @@ export default function Banner() {
     },
   };
 
+  // Seeded pseudo-random for consistent server/client rendering
+  const seededRandom = (seed: number) => {
+    const x = Math.sin(seed * 9999) * 10000;
+    return x - Math.floor(x);
+  };
+
   // Generate random particles for background effect
   const particles = Array.from({ length: 20 }, (_, i) => ({
     id: i,
-    size: Math.random() * 10 + 5,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    opacity: Math.random() * 0.3 + 0.1,
-    delay: Math.random() * 5,
+    size: seededRandom(i * 1) * 10 + 5,
+    x: seededRandom(i * 2) * 100,
+    y: seededRandom(i * 3) * 100,
+    opacity: seededRandom(i * 4) * 0.3 + 0.1,
+    delay: seededRandom(i * 5) * 5,
   }));
 
   return (
@@ -162,7 +168,7 @@ export default function Banner() {
 
       {/* 3D Singularity Element */}
       <motion.div
-        className="absolute inset-0 z-0 pointer-events-auto"
+        className="absolute inset-0 z-0 pointer-events-none"
         style={{
           y: yBg,
           opacity: opacityBg,
@@ -243,7 +249,7 @@ export default function Banner() {
 
               <motion.h3
                 variants={itemVariants}
-                className="text-base sm:text-xl md:text-2xl font-thin mx-auto leading-relaxed mt-1 sm:mt-2"
+                className="text-[13px] sm:text-xl md:text-2xl font-thin mx-auto leading-relaxed mt-1 sm:mt-2 whitespace-nowrap"
               >
                 {occupation}
               </motion.h3>

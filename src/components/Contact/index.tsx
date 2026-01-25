@@ -29,14 +29,20 @@ function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Generate cosmic background elements
+  // Seeded pseudo-random generator for consistent server/client rendering
+  const seededRandom = (seed: number) => {
+    const x = Math.sin(seed * 9999) * 10000;
+    return x - Math.floor(x);
+  };
+
+  // Generate cosmic background elements with deterministic values
   const cosmicElements = Array.from({ length: 20 }, (_, i) => ({
     id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 10 + (i % 3 === 0 ? 15 : 5),
-    duration: 15 + Math.random() * 30,
-    delay: Math.random() * 5,
+    x: seededRandom(i * 1) * 100,
+    y: seededRandom(i * 2) * 100,
+    size: seededRandom(i * 3) * 10 + (i % 3 === 0 ? 15 : 5),
+    duration: 15 + seededRandom(i * 4) * 30,
+    delay: seededRandom(i * 5) * 5,
   }));
 
   const containerVariants = {
@@ -207,13 +213,13 @@ function Contact() {
                   elem.id % 5 === 0
                     ? "linear-gradient(to right, #8c1df3, #621aaf)"
                     : elem.id % 3 === 0
-                    ? "linear-gradient(to right, #f714d1, #e2a6f8)"
-                    : "rgba(255,255,255,0.2)",
+                      ? "linear-gradient(to right, #f714d1, #e2a6f8)"
+                      : "rgba(255,255,255,0.2)",
                 boxShadow: elem.id % 2 === 0 ? "0 0 10px #8c1df3" : "none",
               }}
               animate={{
-                x: [0, Math.random() * 20 - 10, 0],
-                y: [0, Math.random() * 20 - 10, 0],
+                x: [0, seededRandom(elem.id * 6) * 20 - 10, 0],
+                y: [0, seededRandom(elem.id * 7) * 20 - 10, 0],
                 scale: [1, elem.id % 3 === 0 ? 1.2 : 0.8, 1],
                 opacity: [0.3, 0.7, 0.3],
               }}
@@ -255,13 +261,12 @@ function Contact() {
                   <input
                     type="text"
                     className={`peer w-full border-b-2 bg-transparent outline-none text-base sm:text-lg text-white py-2 px-0 transition-all placeholder-transparent mt-7
-                    ${
-                      activeField === "name"
+                    ${activeField === "name"
                         ? "border-[#b520fe]"
                         : errors.name
-                        ? "border-red-500"
-                        : "border-[#2e2e2e]"
-                    }`}
+                          ? "border-red-500"
+                          : "border-[#2e2e2e]"
+                      }`}
                     placeholder="Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
@@ -276,8 +281,8 @@ function Contact() {
                         activeField === "name"
                           ? "100%"
                           : touched.name && !errors.name
-                          ? "100%"
-                          : "0%",
+                            ? "100%"
+                            : "0%",
                     }}
                     transition={{ duration: 0.3 }}
                   />
@@ -286,11 +291,10 @@ function Contact() {
                     className={`absolute left-0 -top-1 text-base sm:text-lg transition-all
                     peer-placeholder-shown:text-base sm:peer-placeholder-shown:text-lg
                     peer-placeholder-shown:top-8 peer-focus:-top-1
-                    ${
-                      activeField === "name"
+                    ${activeField === "name"
                         ? "text-[#b520fe]"
                         : "text-[#9b9b9b]"
-                    }`}
+                      }`}
                   >
                     Name
                   </label>
@@ -309,13 +313,12 @@ function Contact() {
                   <input
                     type="email"
                     className={`peer w-full border-b-2 bg-transparent outline-none text-base sm:text-lg text-white py-2 px-0 transition-all placeholder-transparent mt-7
-                    ${
-                      activeField === "email"
+                    ${activeField === "email"
                         ? "border-[#b520fe]"
                         : errors.email
-                        ? "border-red-500"
-                        : "border-[#2e2e2e]"
-                    }`}
+                          ? "border-red-500"
+                          : "border-[#2e2e2e]"
+                      }`}
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -330,8 +333,8 @@ function Contact() {
                         activeField === "email"
                           ? "100%"
                           : touched.email && !errors.email
-                          ? "100%"
-                          : "0%",
+                            ? "100%"
+                            : "0%",
                     }}
                     transition={{ duration: 0.3 }}
                   />
@@ -340,11 +343,10 @@ function Contact() {
                     className={`absolute left-0 -top-1 text-base sm:text-lg transition-all
                     peer-placeholder-shown:text-base sm:peer-placeholder-shown:text-lg
                     peer-placeholder-shown:top-8 peer-focus:-top-1
-                    ${
-                      activeField === "email"
+                    ${activeField === "email"
                         ? "text-[#b520fe]"
                         : "text-[#9b9b9b]"
-                    }`}
+                      }`}
                   >
                     Email
                   </label>
@@ -362,13 +364,12 @@ function Contact() {
                 <div className="relative w-full">
                   <textarea
                     className={`peer w-full min-h-[80px] border-b-2 bg-transparent outline-none text-base sm:text-lg text-white py-2 px-0 transition-all placeholder-transparent mt-7 resize-none overflow-hidden
-                    ${
-                      activeField === "message"
+                    ${activeField === "message"
                         ? "border-[#b520fe]"
                         : errors.message
-                        ? "border-red-500"
-                        : "border-[#2e2e2e]"
-                    }`}
+                          ? "border-red-500"
+                          : "border-[#2e2e2e]"
+                      }`}
                     placeholder="Message"
                     value={message}
                     onChange={(e) => {
@@ -388,8 +389,8 @@ function Contact() {
                         activeField === "message"
                           ? "100%"
                           : touched.message && !errors.message
-                          ? "100%"
-                          : "0%",
+                            ? "100%"
+                            : "0%",
                     }}
                     transition={{ duration: 0.3 }}
                   />
@@ -398,11 +399,10 @@ function Contact() {
                     className={`absolute left-0 -top-1 text-base sm:text-lg transition-all
                     peer-placeholder-shown:text-base sm:peer-placeholder-shown:text-lg
                     peer-placeholder-shown:top-8 peer-focus:-top-1
-                    ${
-                      activeField === "message"
+                    ${activeField === "message"
                         ? "text-[#b520fe]"
                         : "text-[#9b9b9b]"
-                    }`}
+                      }`}
                   >
                     Message
                   </label>

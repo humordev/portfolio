@@ -35,24 +35,13 @@ const ScrollProgress = () => {
     // This ensures we don't run into hydration issues
     setIsClient(true);
 
-    // Use a longer timeout to ensure loading screen is fully complete
-    // and browser is ready to handle scroll events smoothly
+    // Use a timeout to ensure loading screen is fully complete
     const timer = setTimeout(() => {
       setIsInitialized(true);
-    }, 3000); // Increased from 1000ms to 3000ms to ensure loading screen is fully gone
-
-    // Prevent scroll bounce by temporarily disabling smooth scrolling
-    document.documentElement.style.scrollBehavior = "auto";
-
-    // Re-enable smooth scrolling after initialization
-    const smoothScrollTimer = setTimeout(() => {
-      document.documentElement.style.scrollBehavior = "smooth";
-    }, 3500);
+    }, 3000);
 
     return () => {
       clearTimeout(timer);
-      clearTimeout(smoothScrollTimer);
-      document.documentElement.style.scrollBehavior = "smooth";
     };
   }, []);
 

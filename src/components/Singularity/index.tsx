@@ -141,11 +141,13 @@ function Particles() {
 
 export default function Singularity() {
     return (
-        <div className="absolute inset-0 z-0 w-full h-full pointer-events-auto">
+        <div className="absolute inset-0 z-0 w-full h-full pointer-events-none">
             <Canvas
                 camera={{ position: [0, 0, 22], fov: 60 }}
                 gl={{ alpha: true, antialias: false }}
                 dpr={[1, 2]}
+                style={{ pointerEvents: 'none' }}
+                eventSource={undefined}
             >
                 <Particles />
             </Canvas>

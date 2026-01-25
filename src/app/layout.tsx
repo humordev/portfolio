@@ -90,8 +90,8 @@ export default function RootLayout({
           <ScrollProgress />
           <SmoothScroll>
             {children}
+            <Footer />
           </SmoothScroll>
-          <Footer />
           <Toaster richColors position="bottom-right" />
         </ThemeProvider>
       </body>
