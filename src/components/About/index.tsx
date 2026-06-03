@@ -3,6 +3,7 @@
 import Skills from "../Skills";
 import { motion } from "framer-motion";
 import TechStackVisualization from "./TechStackVisualization";
+import { resumeSummary } from "@/config/resume";
 
 const About = () => {
   const containerVariants = {
@@ -38,7 +39,6 @@ const About = () => {
         viewport={{ once: true, margin: "-100px" }}
         className="space-y-4 sm:space-y-12"
       >
-        {/* Title section */}
         <motion.div
           variants={itemVariants}
           className="flex items-center gap-2 sm:gap-12 px-2 sm:px-0"
@@ -49,31 +49,21 @@ const About = () => {
           <span className="h-[2px] w-full bg-gradient-to-r from-[#2e2e2e] via-purple-500/20 to-[#2e2e2e]" />
         </motion.div>
 
-        {/* Content section */}
         <div className="flex flex-col lg:flex-row gap-3 sm:gap-8 lg:gap-12">
-          {/* Text section */}
           <motion.div
             variants={itemVariants}
             className="flex-1 space-y-3 sm:space-y-6 px-2 sm:px-0"
           >
-            <p className="text-[15px] sm:text-lg lg:text-xl text-[#ababab] leading-relaxed">
-              Full-Stack & AI Engineer with 4+ years of experience building intelligent applications across fintech, AI platforms, and e-learning systems. I specialize in integrating AI agents, deploying machine learning models, and architecting scalable MLOps pipelines that bring cutting-edge AI capabilities to production.
-            </p>
-            <p className="text-[15px] sm:text-lg lg:text-xl text-[#ababab] leading-relaxed">
-              Currently leading AI integration efforts at Chemp.ai while building production-ready systems with Python, FastAPI, and Django on the backend, complemented by React, Next.js, and React Native on the frontend. My expertise spans LangChain-powered agentic workflows, retrieval-augmented generation (RAG), vector databases, and containerized deployment with Docker and AWS.
-            </p>
-            <p className="text-[15px] sm:text-lg lg:text-xl text-[#ababab] leading-relaxed">
-              What sets me apart is my ability to bridge AI research and software engineering—from fine-tuning multimodal models and building intelligent agents to designing scalable APIs and intuitive user interfaces. My background in system programming with C/C++ at 1337 School (42 Network) has equipped me with deep performance optimization skills that inform my approach to AI infrastructure.
-            </p>
-            <p className="text-[15px] sm:text-lg lg:text-xl text-[#ababab] leading-relaxed">
-              Recent achievements include deploying AI-assisted learning platforms with sub-second retrieval latency, reducing model inference costs by 45% through optimization strategies, and building end-to-end MLOps systems for multimodal content generation at Andala.ai. At Lendstack, I optimized fintech backend performance by 40% through PostgreSQL tuning and architectural improvements.
-            </p>
-            <p className="text-[15px] sm:text-lg lg:text-xl text-[#ababab] leading-relaxed">
-              I&apos;m passionate about the intersection of AI and practical software engineering—building systems that are not only intelligent but also scalable, maintainable, and deliver exceptional user experiences. Let&apos;s collaborate on AI-powered solutions that make a real impact.
-            </p>
+            {resumeSummary.map((paragraph) => (
+              <p
+                key={paragraph.slice(0, 48)}
+                className="text-[15px] sm:text-lg lg:text-xl text-[#ababab] leading-relaxed"
+              >
+                {paragraph}
+              </p>
+            ))}
           </motion.div>
 
-          {/* Skills section */}
           <motion.div variants={itemVariants} className="flex-1">
             <Skills />
             <TechStackVisualization />

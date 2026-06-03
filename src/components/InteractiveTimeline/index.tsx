@@ -2,191 +2,19 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { FaBriefcase, FaCode, FaGraduationCap, FaTrophy } from "react-icons/fa";
+import { FaBriefcase, FaGraduationCap, FaTrophy } from "react-icons/fa";
+import { resumeTimeline } from "@/config/resume";
 
-// Timeline data - key career moments, projects, and achievements
-const timelineData = [
-  {
-    id: 1,
-    date: "2019",
-    title: "Started Coding Journey",
-    description:
-      "Began learning basic HTML, CSS, and Java through various online courses",
-    category: "education",
-    icon: <FaGraduationCap className="text-blue-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 2,
-    date: "2020",
-    title: "First Development Projects",
-    description:
-      "Built small projects like calculators and simple applications to practice coding skills",
-    category: "project",
-    icon: <FaCode className="text-purple-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 3,
-    date: "Aug 2021",
-    title: "Selected for 1337 Coding School",
-    description:
-      "Joined 1337 (42 Network) to pursue intensive software engineering education",
-    category: "education",
-    icon: <FaGraduationCap className="text-blue-400" />,
-    isKeyMilestone: true,
-  },
-  {
-    id: 4,
-    date: "Nov 2021 - Feb 2022",
-    title: "C Language Mastery",
-    description:
-      "Mastered C programming through multiple projects focused on memory management, algorithms, and UNIX systems programming",
-    category: "education",
-    icon: <FaGraduationCap className="text-blue-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 5,
-    date: "Mar-Jun 2022",
-    title: "Systems & Network Programming",
-    description:
-      "Developed advanced understanding of threads, processes, synchronization, and networking fundamentals",
-    category: "education",
-    icon: <FaGraduationCap className="text-blue-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 6,
-    date: "Jul 2022",
-    title: "Robotics Competition - 2nd Place",
-    description:
-      "Won second place in a robotics competition in Meknes, Morocco, building and programming a robot car with Arduino to solve a maze autonomously",
-    category: "achievement",
-    icon: <FaTrophy className="text-yellow-400" />,
-    isKeyMilestone: true,
-  },
-  {
-    id: 7,
-    date: "Aug 2022",
-    title: "UNIX Shell Implementation",
-    description:
-      "Created a fully-featured UNIX shell with built-in commands, pipes, redirections, and signal handling",
-    category: "achievement",
-    icon: <FaTrophy className="text-yellow-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 8,
-    date: "Sep-Oct 2022",
-    title: "Object-Oriented Programming",
-    description:
-      "Transitioned to C++ and gained expertise in OOP principles, design patterns, and STL",
-    category: "education",
-    icon: <FaGraduationCap className="text-blue-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 9,
-    date: "Nov 2022",
-    title: "Problem Solving Competition - 4th Place",
-    description:
-      "Achieved 4th place with a team of three in a competitive problem solving competition held in Rabat, Morocco",
-    category: "achievement",
-    icon: <FaTrophy className="text-yellow-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 10,
-    date: "Feb 2023",
-    title: "3D Graphics Programming",
-    description:
-      "Built a raycasting engine from scratch, implementing rendering techniques and 3D mathematics",
-    category: "achievement",
-    icon: <FaTrophy className="text-yellow-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 11,
-    date: "Mar-Jun 2023",
-    title: "Advanced Software Engineering",
-    description:
-      "Developed expertise in network protocols, containerization, infrastructure management, and DevOps practices",
-    category: "education",
-    icon: <FaGraduationCap className="text-blue-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 12,
-    date: "Oct 2023",
-    title: "Completed 1337 Common Core at 100%",
-    description:
-      "Achieved full completion of 42 Network's foundational program covering algorithms, C/C++, networking, and systems engineering. Validated over 20 projects demonstrating mastery across the full-stack.",
-    category: "achievement",
-    icon: <FaTrophy className="text-yellow-400" />,
-    isKeyMilestone: true,
-  },
-  {
-    id: 13,
-    date: "Nov 2023 - Sep 2024",
-    title: "Software Engineer at Lendstack",
-    description:
-      "Optimized fintech backend performance by 40% through PostgreSQL tuning and code refactoring. Led KYC implementation reducing verification times by 30% and enhanced platform scalability for high-volume transactions.",
-    category: "work",
-    icon: <FaBriefcase className="text-green-400" />,
-    isKeyMilestone: true,
-  },
-  {
-    id: 14,
-    date: "2024",
-    title: "Top-Rated Freelancer on Fiverr",
-    description:
-      "Maintained 100% client satisfaction across multiple AI-powered and full-stack freelance projects, delivering high-quality solutions for diverse technical requirements.",
-    category: "achievement",
-    icon: <FaTrophy className="text-yellow-400" />,
-    isKeyMilestone: false,
-  },
-  {
-    id: 15,
-    date: "Jan 2025",
-    title: "Launched Andala.ai MLOps Infrastructure",
-    description:
-      "Designed end-to-end MLOps system for multimodal model scaling and monitoring on AWS. Reduced inference costs by 45% through GPU optimization and built CI/CD pipelines for automated model deployment.",
-    category: "work",
-    icon: <FaBriefcase className="text-green-400" />,
-    isKeyMilestone: true,
-  },
-  {
-    id: 16,
-    date: "Apr 2025",
-    title: "Delivered AI-Assisted LMS at Akera",
-    description:
-      "Integrated agentic AI into e-learning platform using LangChain and RAG, enabling contextual automation and personalized learning for hundreds of concurrent users with sub-second retrieval latency.",
-    category: "work",
-    icon: <FaBriefcase className="text-green-400" />,
-    isKeyMilestone: true,
-  },
-  {
-    id: 17,
-    date: "Jul 2025 - Present",
-    title: "AI Integration Lead at Chemp.ai",
-    description:
-      "Leading AI integration efforts across mobile and web platforms. Building intelligent features with React Native and implementing LLM-powered capabilities to automate workflows and enhance user experience.",
-    category: "work",
-    icon: <FaBriefcase className="text-green-400" />,
-    isKeyMilestone: true,
-  },
-  {
-    id: 18,
-    date: "Current",
-    title: "Advanced AI/MLOps Specialization",
-    description:
-      "Pursuing Senior Software Architect specialization at 1337 with focus on AI agents, distributed systems, and MLOps infrastructure for production-grade intelligent applications.",
-    category: "education",
-    icon: <FaGraduationCap className="text-blue-400" />,
-    isKeyMilestone: false,
-  },
-];
+const timelineIcons = {
+  education: <FaGraduationCap className="text-blue-400" />,
+  work: <FaBriefcase className="text-green-400" />,
+  achievement: <FaTrophy className="text-yellow-400" />,
+};
+
+const timelineData = resumeTimeline.map((event) => ({
+  ...event,
+  icon: timelineIcons[event.category],
+}));
 
 // Filter categories for the timeline
 const categories = [
@@ -490,7 +318,7 @@ const InteractiveTimeline = () => {
               Looking Forward
             </h3>
             <p className="text-[#ababab] text-center max-w-3xl mx-auto">
-              As I continue advancing in AI engineering and MLOps, I&apos;m focused on pushing the boundaries of intelligent systems—from building sophisticated AI agents with LangChain to deploying production-grade multimodal models at scale. My goal is to bridge the gap between AI research and real-world applications, creating systems that are not only intelligent but also reliable, scalable, and cost-efficient. I&apos;m particularly excited about the intersection of agentic AI, retrieval-augmented generation, and distributed systems, and I&apos;m committed to contributing to meaningful projects that leverage these technologies to solve complex problems and deliver exceptional user experiences.
+              I&apos;m focused on building secure, scalable SaaS and AI-powered platforms—from robust APIs and multi-tenant cloud architectures to LLM integrations that ship as reliable production features. My goal is to keep delivering maintainable systems with strong ownership, clear collaboration, and measurable business impact in remote, product-driven teams.
             </p>
           </div>
         </motion.div>

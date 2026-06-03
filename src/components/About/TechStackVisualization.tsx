@@ -7,11 +7,11 @@ import {
   SiTailwindcss,
   SiNextdotjs,
   SiExpress,
-  SiNestjs,
   SiPostgresql,
   SiMongodb,
   SiMysql,
-  SiCplusplus,
+  SiPython,
+  SiAngular,
 } from "react-icons/si";
 
 interface TechNode {
@@ -83,22 +83,22 @@ const TechStackVisualization = () => {
       group: "backend",
     },
     {
-      id: "nest",
-      label: "NestJS",
-      icon: <SiNestjs size={20} />,
-      color: "#e0234e",
+      id: "python",
+      label: "Python",
+      icon: <SiPython size={20} />,
+      color: "#3776ab",
       x: 85,
       y: 15,
       group: "backend",
     },
     {
-      id: "express",
-      label: "Express",
-      icon: <SiExpress size={20} />,
-      color: "#000000",
+      id: "angular",
+      label: "Angular",
+      icon: <SiAngular size={20} />,
+      color: "#dd0031",
       x: 60,
       y: 20,
-      group: "backend",
+      group: "frontend",
     },
 
     // Database
@@ -170,13 +170,13 @@ const TechStackVisualization = () => {
       group: "language",
     },
     {
-      id: "cpp",
-      label: "C++",
-      icon: <SiCplusplus size={20} />,
-      color: "#00599C",
+      id: "express",
+      label: "Express",
+      icon: <SiExpress size={20} />,
+      color: "#000000",
       x: 45,
       y: 60,
-      group: "language",
+      group: "backend",
     },
   ];
 
@@ -191,13 +191,14 @@ const TechStackVisualization = () => {
 
       // Backend connections
       { from: "node", to: "express" },
-      { from: "node", to: "nest" },
+      { from: "python", to: "postgres" },
       { from: "js", to: "node" },
       { from: "express", to: "js" },
+      { from: "react", to: "angular" },
 
       // Database connections
       { from: "postgres", to: "node" },
-      { from: "nest", to: "postgres" },
+      { from: "python", to: "mongo" },
       { from: "mongo", to: "express" },
       { from: "postgres", to: "mysql" },
 
@@ -207,8 +208,8 @@ const TechStackVisualization = () => {
       { from: "node", to: "aws" },
 
       // Language connections
-      { from: "js", to: "cpp" },
-      { from: "cpp", to: "aws" },
+      { from: "js", to: "python" },
+      { from: "python", to: "aws" },
 
       // Cross-category connections
       { from: "react", to: "js" },

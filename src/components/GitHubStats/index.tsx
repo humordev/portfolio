@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { GitHubStats as GitHubStatsType } from "@/types/github";
+import { githubUrl } from "@/config/site";
 import { format } from "date-fns";
 import { FaCode, FaCodePullRequest, FaEye, FaHashtag } from "react-icons/fa6";
 import { LuGithub, LuCalendarDays } from "react-icons/lu";
@@ -103,7 +104,7 @@ const ContributionHeatmap = ({
                 }}
                 onClick={() =>
                   window.open(
-                    `https://github.com/osallak?tab=overview&from=${activity.date}&to=${activity.date}`,
+                    `${githubUrl}?tab=overview&from=${activity.date}&to=${activity.date}`,
                     "_blank"
                   )
                 }
@@ -225,7 +226,7 @@ const LanguageChart = ({
               className="transition-all cursor-pointer"
               onClick={() =>
                 window.open(
-                  `https://github.com/osallak?tab=repositories&language=${segment.language.name}`,
+                  `${githubUrl}?tab=repositories&language=${segment.language.name}`,
                   "_blank"
                 )
               }
@@ -298,7 +299,7 @@ const LanguageChart = ({
             onMouseLeave={() => setActiveIndex(null)}
             onClick={() =>
               window.open(
-                `https://github.com/osallak?tab=repositories&language=${lang.name}`,
+                `${githubUrl}?tab=repositories&language=${lang.name}`,
                 "_blank"
               )
             }
@@ -518,7 +519,7 @@ export default function GitHubStats() {
 
         {!isLoading && !error && stats && (
           <motion.a
-            href={`https://github.com/osallak`}
+            href={`${githubUrl}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-gray-400 flex items-center hover:text-white transition-colors duration-200"
@@ -668,7 +669,7 @@ export default function GitHubStats() {
             className="flex justify-center mt-5 sm:mt-8"
           >
             <motion.a
-              href="https://github.com/osallak"
+              href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="glass-tertiary group rounded-full border border-[#2e2e2e] px-5 sm:px-6 py-2.5 sm:py-3 flex items-center space-x-2 hover:border-[#b520fe] transition-all duration-300"

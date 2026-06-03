@@ -5,11 +5,13 @@ import { FaDownload, FaGithub, FaLinkedin } from "react-icons/fa6";
 import { motion, useInView, useScroll, useTransform, Variants } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import Singularity from "@/components/Singularity";
+import { siteConfig, githubUrl, linkedinUrl } from "@/config/site";
+import { resumeTypewriterWords } from "@/config/resume";
 
 export default function Banner() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false });
-  const occupation = "Full-Stack & AI Engineer | MLOps Specialist";
+  const occupation = siteConfig.occupation;
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMounted, setIsMounted] = useState(false);
 
@@ -24,14 +26,7 @@ export default function Banner() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
 
   const [typewriterText] = useTypewriter({
-    words: [
-      "AI Integration",
-      "Machine Learning",
-      "MLOps",
-      "Full-Stack Development",
-      "Innovation",
-      "Scalable Solutions",
-    ],
+    words: [...resumeTypewriterWords],
     loop: true,
     typeSpeed: 80,
     deleteSpeed: 110,
@@ -227,7 +222,7 @@ export default function Banner() {
               >
                 Hi, I&apos;m{" "}
                 <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text relative drop-shadow-[0_0_15px_rgba(168,85,247,0.8)]">
-                  Oussama!
+                  {siteConfig.firstName}!
                   <span className="absolute bottom-0 left-0 w-full h-0.5 sm:h-1 bg-gradient-to-r from-purple-500 to-pink-500 opacity-60"></span>
                 </span>
               </motion.h1>
@@ -285,7 +280,7 @@ export default function Banner() {
 
                 <div className="flex items-center gap-3 sm:gap-4 mt-3 sm:mt-0">
                   <motion.a
-                    href="https://github.com/osallak"
+                    href={githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1, y: -5 }}
@@ -295,7 +290,7 @@ export default function Banner() {
                     <FaGithub size={16} className="sm:text-xl md:text-2xl" />
                   </motion.a>
                   <motion.a
-                    href="https://linkedin.com/in/osallak"
+                    href={linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ scale: 1.1, y: -5 }}

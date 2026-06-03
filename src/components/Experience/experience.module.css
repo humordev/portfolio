@@ -1,0 +1,20 @@
+.timelineWrapper {
+  padding: 0 0.5rem;
+}
+
+.teste-card {
+  border: 1px solid #2e2e2e !important;
+  border-radius: 1rem !important;
+  backdrop-filter: blur(8px);
+}
+
+.my-title {
+  color: #b520fe !important;
+  font-weight: 700 !important;
+}
+
+.card-text {
+  color: #ababab !important;
+  line-height: 1.6 !important;
+  font-size: 0.95rem !important;
+}

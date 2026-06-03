@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { githubUrl } from "@/config/site";
 
 interface ProjectCardProps {
   title: string;
@@ -181,7 +182,7 @@ const Projects = () => {
             >
               <motion.a
                 whileHover={{ scale: 1.05 }}
-                href="https://github.com/osallak"
+                href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-2 bg-[#2e2e2e50] px-6 sm:px-8 py-3 sm:py-4 rounded-xl border border-[#2e2e2e] transition-all duration-200 hover:border-[#343434]"

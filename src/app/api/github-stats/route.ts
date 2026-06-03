@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 
 const GITHUB_API_URL = "https://api.github.com/graphql";
-const GITHUB_USERNAME = "osallak"; // Your GitHub username
+import { siteConfig } from "@/config/site";
+
+const GITHUB_USERNAME = siteConfig.githubUsername;
 
 interface LanguageEdge {
   size: number;

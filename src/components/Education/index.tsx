@@ -2,28 +2,14 @@
 
 import { Timeline } from "@/components/ui/timeline";
 import { motion } from "framer-motion";
+import { resumeEducation } from "@/config/resume";
 
 const educationData = [
   {
-    title: "2021 - Present",
-    cardTitle: "Software Engineering",
-    cardSubtitle: "1337 School (42 Network) - Programming School",
-    cardDetailedText:
-      "An intensive project-based curriculum focused on software engineering, algorithms, and system programming. Part of the prestigious 42 Network known for its peer-to-peer learning methodology.",
-  },
-  {
-    title: "2018 - 2021",
-    cardTitle: "Economics and Management",
-    cardSubtitle: "Faculty of Economics and Management - University Hassan I",
-    cardDetailedText:
-      "Studied economics and management with focus on data analysis and business systems, developing analytical skills that complement software engineering.",
-  },
-  {
-    title: "2018",
-    cardTitle: "High School Diploma",
-    cardSubtitle: "Economics and Management",
-    cardDetailedText:
-      "Completed secondary education with focus on scientific subjects including mathematics, economics, and management.",
+    title: resumeEducation.period,
+    cardTitle: resumeEducation.degree,
+    cardSubtitle: `${resumeEducation.school} — ${resumeEducation.location}`,
+    cardDetailedText: resumeEducation.description,
   },
 ];
 
@@ -51,10 +37,8 @@ const itemVariants = {
 const Education = () => {
   return (
     <div id="education" className="relative w-full py-4 sm:py-16 lg:py-20">
-      {/* Vue-inspired animated background */}
       <div className="absolute inset-0 z-[1] flex items-center justify-center">
         <div className="relative w-[800px] h-[800px]">
-          {/* Large rotating hexagon */}
           <motion.div
             className="absolute inset-0 border-[3px] border-purple-500/30"
             style={{
@@ -78,7 +62,6 @@ const Education = () => {
               },
             }}
           />
-          {/* Medium rotating hexagon */}
           <motion.div
             className="absolute inset-[15%] border-[3px] border-pink-500/40"
             style={{
@@ -102,7 +85,6 @@ const Education = () => {
               },
             }}
           />
-          {/* Small rotating hexagon */}
           <motion.div
             className="absolute inset-[30%] border-[3px] border-purple-500/50"
             style={{
@@ -129,12 +111,10 @@ const Education = () => {
         </div>
       </div>
 
-      {/* Dot pattern background */}
       <div className="absolute inset-0 z-[1]">
         <div className="h-full w-full bg-[radial-gradient(circle,_#585858_1px,_transparent_1px),radial-gradient(circle,_#585858_1.2px,_transparent_1.2px)] bg-[length:40px_40px]" />
       </div>
 
-      {/* Content container with dark overlay */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}

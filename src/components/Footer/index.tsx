@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaTwitter} from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import { siteConfig, githubUrl, linkedinUrl } from "@/config/site";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -24,7 +25,7 @@ const Footer = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
             >
-              OS
+              {siteConfig.initials}
             </motion.div>
             <motion.p
               className="text-sm text-white/60 mt-2"
@@ -33,7 +34,7 @@ const Footer = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              © {currentYear} Oussama Sallak. All rights reserved.
+              © {currentYear} {siteConfig.name}. All rights reserved.
             </motion.p>
           </div>
 
@@ -45,7 +46,7 @@ const Footer = () => {
             viewport={{ once: true }}
           >
             <a
-              href="https://github.com/osallak"
+              href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-full flex items-center justify-center bg-[#2e2e2e] text-white hover:bg-gradient-to-r from-[#8c1df3] to-[#621aaf] transition-all duration-300"
@@ -54,7 +55,7 @@ const Footer = () => {
               <FaGithub size={20} />
             </a>
             <a
-              href="https://linkedin.com/in/osallak"
+              href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="w-10 h-10 rounded-full flex items-center justify-center bg-[#2e2e2e] text-white hover:bg-gradient-to-r from-[#8c1df3] to-[#621aaf] transition-all duration-300"
@@ -63,13 +64,11 @@ const Footer = () => {
               <FaLinkedin size={20} />
             </a>
             <a
-              href="https://x.com/uss4ma"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={`mailto:${siteConfig.email}`}
               className="w-10 h-10 rounded-full flex items-center justify-center bg-[#2e2e2e] text-white hover:bg-gradient-to-r from-[#8c1df3] to-[#621aaf] transition-all duration-300"
-              aria-label="Twitter Profile"
+              aria-label="Email"
             >
-              <FaTwitter size={20} />
+              <FaEnvelope size={20} />
             </a>
           </motion.div>
         </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-scroll";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMenu, IoClose } from "react-icons/io5";
+import { siteConfig } from "@/config/site";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,6 +13,7 @@ const Header = () => {
   const navItems = [
     { label: "Home", to: "home" },
     { label: "About", to: "about" },
+    { label: "Experience", to: "experience" },
     { label: "Projects", to: "projects" },
     { label: "Education", to: "education" },
     { label: "Contact", to: "contact" },
@@ -46,7 +48,7 @@ const Header = () => {
             }}
             className="text-2xl font-bold bg-gradient-to-r from-[#8c1df3] to-[#621aaf] text-transparent bg-clip-text"
           >
-            OS
+            {siteConfig.initials}
           </motion.div>
 
           {/* Desktop Navigation */}

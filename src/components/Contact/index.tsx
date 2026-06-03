@@ -9,8 +9,8 @@ import {
   FaGithub,
   FaLinkedin,
   FaStar,
-  FaTwitter,
 } from "react-icons/fa";
+import { siteConfig, githubUrl, linkedinUrl } from "@/config/site";
 function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -131,7 +131,7 @@ function Contact() {
       emailjs.send(serviceId, templateId, {
         from_name: name,
         from_email: email,
-        to_name: process.env.NEXT_PUBLIC_TO_NAME || "User",
+        to_name: process.env.NEXT_PUBLIC_TO_NAME || siteConfig.firstName,
         message: message,
       }),
       {
@@ -156,22 +156,17 @@ function Contact() {
   const socialLinks = [
     {
       icon: <FaGithub className="text-xl sm:text-2xl" />,
-      url: "https://github.com/osallak",
+      url: githubUrl,
       label: "GitHub",
     },
     {
       icon: <FaLinkedin className="text-xl sm:text-2xl" />,
-      url: "https://linkedin.com/in/osallak",
+      url: linkedinUrl,
       label: "LinkedIn",
     },
     {
-      icon: <FaTwitter className="text-xl sm:text-2xl" />,
-      url: "https://x.com/uss4ma",
-      label: "Twitter",
-    },
-    {
       icon: <FaEnvelope className="text-xl sm:text-2xl" />,
-      url: "mailto:oussamasallak1@gmail.com",
+      url: `mailto:${siteConfig.email}`,
       label: "Email",
     },
   ];
@@ -464,10 +459,19 @@ function Contact() {
 
                 <div className="space-y-4 sm:space-y-6">
                   <p className="text-[#ababab] text-sm sm:text-base leading-relaxed">
-                    I&apos;m currently exploring new opportunities in software
-                    engineering, where I can apply my expertise in full-stack
-                    development, system architecture, and DevOps practices.
+                    Senior Software Engineer open to SaaS, AI platforms, and
+                    cloud-native roles—remote-friendly from {siteConfig.location}.
                   </p>
+                  <ul className="text-[#ababab] text-sm sm:text-base space-y-1">
+                    <li>
+                      <span className="text-white/80">Email:</span>{" "}
+                      {siteConfig.email}
+                    </li>
+                    <li>
+                      <span className="text-white/80">Phone:</span>{" "}
+                      {siteConfig.phone}
+                    </li>
+                  </ul>
 
                   <div className="mt-6">
                     <h4 className="text-white text-lg mb-3 font-semibold">
